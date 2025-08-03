@@ -60,6 +60,9 @@
             font-size: 20px;
             color: #e91e63;
             text-shadow: 0 0 10px rgba(233, 30, 99, 0.5);
+            will-change: transform;
+            transform: translateZ(0);
+            pointer-events: none;
         }
 
         /* Main Container */
@@ -91,6 +94,8 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            will-change: filter, box-shadow, transform;
+            transform: translateZ(0);
         }
 
         .card::before {
@@ -142,6 +147,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         /* Typography */
@@ -408,7 +414,7 @@
 
             <!-- Avatar -->
             <div class="avatar">
-                <img src="https://i.ibb.co/NggfCyYP/IMG-20250803-093723-951.jpg" alt="عبسية">
+                <img src="https://i.ibb.co/NggfCyYP/IMG-20250803-093723-951.jpg" alt="عبسية" loading="lazy">
             </div>
 
             <!-- Title -->
@@ -538,7 +544,7 @@
             document.getElementById('iraq-time').textContent = timeString;
         }
 
-        // إنشاء الرسوم المتحركة المتساقطة
+        // إنشاء الرسوم المتحركة المتساقطة - حذف العناصر عند انتهاء الأنيميشن (تحسين الأداء)
         function createFallingAnimation() {
             const container = document.getElementById('falling-animation');
             const symbols = ['💖', '🌸', '✨', '💕', '🌺', '🦋', '💫', '🌷', '💐', '🌹'];
@@ -551,14 +557,13 @@
                 item.style.fontSize = (Math.random() * 15 + 10) + 'px';
                 item.style.animationDuration = (Math.random() * 8 + 6) + 's';
                 item.style.animationDelay = Math.random() * 2 + 's';
+
+                // حذف العنصر مباشرة عند انتهاء الأنيميشن بدلاً من setTimeout
+                item.addEventListener('animationend', () => {
+                    item.remove();
+                });
                 
                 container.appendChild(item);
-                
-                setTimeout(() => {
-                    if (item.parentNode) {
-                        item.parentNode.removeChild(item);
-                    }
-                }, 15000);
             }
             
             // إنشاء عناصر دورية
