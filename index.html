@@ -6,7 +6,6 @@
     <title>الملف الشخصي - عبسية 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
     <style>
         * {
             margin: 0;
@@ -57,12 +56,13 @@
         .falling-item {
             position: absolute;
             animation: fall linear infinite;
-            font-size: 20px;
+            font-size: 18px;
             color: #e91e63;
             text-shadow: 0 0 10px rgba(233, 30, 99, 0.5);
             will-change: transform;
             transform: translateZ(0);
             pointer-events: none;
+            user-select: none;
         }
 
         /* Main Container */
@@ -525,144 +525,144 @@
 
     <script>
         // تهيئة الأيقونات
-document.addEventListener('DOMContentLoaded', function() {
-    lucide.createIcons();
-});
-
-// تحديث الوقت العراقي
-function updateIraqTime() {
-    const now = new Date();
-    const iraqTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Baghdad"}));
-    const timeString = iraqTime.toLocaleTimeString('ar-IQ', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-    });
-    document.getElementById('iraq-time').textContent = timeString;
-}
-
-// رسوم متحركة متساقطة محسنة
-function createFallingAnimation() {
-    const container = document.getElementById('falling-animation');
-    const symbols = ['💖', '🌸', '✨', '💕', '🌺', '🦋', '💫', '🌷', '💐', '🌹'];
-    let activeItems = 0;
-    const maxItems = 15; // الحد الأقصى للرسوم المتساقطة
-    let lastAdd = 0;
-
-    function createFallingItem() {
-        if (activeItems >= maxItems) return;
-        const item = document.createElement('div');
-        item.className = 'falling-item';
-        item.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        item.style.left = Math.random() * 100 + '%';
-        item.style.fontSize = (Math.random() * 15 + 10) + 'px';
-        item.style.animationDuration = (Math.random() * 8 + 6) + 's';
-        item.style.animationDelay = Math.random() * 2 + 's';
-        item.addEventListener('animationend', () => {
-            item.remove();
-            activeItems--;
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
         });
-        container.appendChild(item);
-        activeItems++;
-    }
 
-    // أول دفعة عند التحميل
-    for (let i = 0; i < 8; i++) setTimeout(createFallingItem, i * 300);
-
-    // رسم مستمر حسب الأداء
-    function loop(ts) {
-        // أضف عنصر كل 1400 مللي ثانية فقط
-        if (!lastAdd || ts - lastAdd > 1400) {
-            createFallingItem();
-            lastAdd = ts;
+        // تحديث الوقت العراقي
+        function updateIraqTime() {
+            const now = new Date();
+            const iraqTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Baghdad"}));
+            const timeString = iraqTime.toLocaleTimeString('ar-IQ', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            });
+            document.getElementById('iraq-time').textContent = timeString;
         }
-        requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
-}
 
-// مقولة يومية
-function generateDailyQuote() {
-    const quotes = [
-        "الجمال الحقيقي يشع من الداخل، والثقة أجمل إكسسوار تتزينين به 💖",
-        "كوني كالوردة، تنشر عطرها أينما ذهبت وتضيء كل مكان 🌹",
-        "أحلامك هي بذور المستقبل، اسقيها بالإيمان والعمل لتزهر 🌱",
-        "ابتسامتك نور يضيء قلوب الآخرين، فلا تبخلي بها أبداً ✨",
-        "كل يوم جديد هو فرصة ذهبية لتكوني أفضل نسخة من نفسك 🌟",
-        "قوتك ليست في كونك مثالية، بل في كونك حقيقية وأصيلة 💕",
-        "لا تنتظري الإعجاب من الآخرين، بل كوني أنت مصدر الإلهام 💫",
-        "كل تحدٍ تواجهينه هو خطوة نحو قوتك الداخلية 💪",
-        "كوني فخورة بكل ندبة، فهي دليل على نجاتك وانتصارك 🌺",
-        "في كل لحظة ضعف، هناك قوة تنتظرك لتُولد من جديد 🔥",
-        "الأنوثة لا تعني الضعف، بل تعني القوة في أرقى صورها 🌸",
-        "لا أحد يشبهك، وهذا ما يجعلك مميزة ورائعة 🌈",
-        "الحياة لا تُقاس بعدد الأنفاس، بل باللحظات التي تخطف الأنفاس 🌷",
-        "اختاري أن تكوني سعيدة، فالسعادة قرار ينبع منك أنت 🌞",
-        "النجاح لا يأتي صدفة، بل يُصنع بالإرادة والإصرار 🎯"
-    ];
-    const today = new Date().getDate();
-    const quote = quotes[today % quotes.length];
-    document.getElementById('daily-quote').textContent = quote;
-    document.getElementById('quote-card').style.display = 'block';
-}
+        // رسوم متحركة متساقطة محسنة
+        function createFallingAnimation() {
+            const container = document.getElementById('falling-animation');
+            const symbols = ['💖', '🌸', '✨', '💕', '🌺', '🦋', '💫', '🌷', '💐', '🌹'];
+            let activeItems = 0;
+            const maxItems = 8; // تقليل العدد لتحسين الأداء
+            let lastAdd = 0;
 
-// تحية الذكاء الاصطناعي
-function showAIGreeting() {
-    const greetings = [
-        "أهلاً وسهلاً يا أميرة! 💖 مرحباً بك في عالمي الوردي الجميل",
-        "مرحباً حبيبتي! 🌸 أسعدني جداً أن تزوري موقعي اللطيف",
-        "يا أهلاً وسهلاً! ✨ نورتِ موقعي بحضورك الجميل",
-        "أهلاً بك يا جميلة! 🧸 أتمنى أن تستمتعي بتصفح موقعي",
-        "أهلاً بنجمة اليوم! 🌟 وجودك زاد المكان بهجة وسعادة",
-        "هلا وغلا يا قمر! 🌙 كل شيء هنا يرحب بك بكل حب",
-        "مرحباً بكِ في ركن السعادة والجمال! 🎀 استمتعي بكل لحظة",
-        "يا أهلاً بلمستك الناعمة! 💅 هنا حيث الدلال والأنوثة",
-        "موقعنا صار أحلى بوجودك يا ملكة الأناقة 👑",
-        "قلبي يرحب فيك قبل موقعي! 💗 أهلاً وسهلاً بكِ بكل حب"
-    ];
-    const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
-    document.getElementById('greeting-text').textContent = randomGreeting;
-    document.getElementById('ai-greeting').style.display = 'block';
-    // إخفاء التحية بعد 6 ثوان
-    setTimeout(() => {
-        const greeting = document.getElementById('ai-greeting');
-        greeting.style.opacity = '0';
-        greeting.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-            greeting.style.display = 'none';
-        }, 500);
-    }, 6000);
-}
+            function createFallingItem() {
+                if (activeItems >= maxItems) return;
+                const item = document.createElement('div');
+                item.className = 'falling-item';
+                item.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                item.style.left = Math.random() * 100 + '%';
+                item.style.fontSize = (Math.random() * 10 + 12) + 'px'; // حجم أصغر قليلاً
+                item.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                item.style.animationDelay = Math.random() * 2 + 's';
+                item.addEventListener('animationend', () => {
+                    item.remove();
+                    activeItems--;
+                });
+                container.appendChild(item);
+                activeItems++;
+            }
 
-// عداد الزوار
-function updateVisitorCount() {
-    let visitorCount = localStorage.getItem('visitorCount');
-    if (!visitorCount) {
-        visitorCount = 877;
-    } else {
-        visitorCount = parseInt(visitorCount) + 1;
-    }
-    localStorage.setItem('visitorCount', visitorCount);
-    const counterElement = document.getElementById('visitor-count');
-    counterElement.textContent = visitorCount.toLocaleString('ar-EG') + ' زائر';
-    // تأثير حركي للعداد
-    counterElement.style.transform = 'scale(1.2)';
-    setTimeout(() => {
-        counterElement.style.transform = 'scale(1)';
-    }, 400);
-}
+            // أول دفعة عند التحميل
+            for (let i = 0; i < 4; i++) setTimeout(createFallingItem, i * 400);
 
-// تهيئة كل شيء عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-    lucide.createIcons();
-    createFallingAnimation();
-    updateIraqTime();
-    setInterval(updateIraqTime, 1000);
-    updateVisitorCount();
-    generateDailyQuote();
-    setTimeout(showAIGreeting, 4000);
-});
+            // رسم مستمر حسب الأداء
+            function loop(ts) {
+                // أضف عنصر كل 2000 مللي ثانية فقط
+                if (!lastAdd || ts - lastAdd > 2000) {
+                    createFallingItem();
+                    lastAdd = ts;
+                }
+                requestAnimationFrame(loop);
+            }
+            requestAnimationFrame(loop);
+        }
+
+        // مقولة يومية
+        function generateDailyQuote() {
+            const quotes = [
+                "الجمال الحقيقي يشع من الداخل، والثقة أجمل إكسسوار تتزينين به 💖",
+                "كوني كالوردة، تنشر عطرها أينما ذهبت وتضيء كل مكان 🌹",
+                "أحلامك هي بذور المستقبل، اسقيها بالإيمان والعمل لتزهر 🌱",
+                "ابتسامتك نور يضيء قلوب الآخرين، فلا تبخلي بها أبداً ✨",
+                "كل يوم جديد هو فرصة ذهبية لتكوني أفضل نسخة من نفسك 🌟",
+                "قوتك ليست في كونك مثالية، بل في كونك حقيقية وأصيلة 💕",
+                "لا تنتظري الإعجاب من الآخرين، بل كوني أنت مصدر الإلهام 💫",
+                "كل تحدٍ تواجهينه هو خطوة نحو قوتك الداخلية 💪",
+                "كوني فخورة بكل ندبة، فهي دليل على نجاتك وانتصارك 🌺",
+                "في كل لحظة ضعف، هناك قوة تنتظرك لتُولد من جديد 🔥",
+                "الأنوثة لا تعني الضعف، بل تعني القوة في أرقى صورها 🌸",
+                "لا أحد يشبهك، وهذا ما يجعلك مميزة ورائعة 🌈",
+                "الحياة لا تُقاس بعدد الأنفاس، بل باللحظات التي تخطف الأنفاس 🌷",
+                "اختاري أن تكوني سعيدة، فالسعادة قرار ينبع منك أنت 🌞",
+                "النجاح لا يأتي صدفة، بل يُصنع بالإرادة والإصرار 🎯"
+            ];
+            const today = new Date().getDate();
+            const quote = quotes[today % quotes.length];
+            document.getElementById('daily-quote').textContent = quote;
+            document.getElementById('quote-card').style.display = 'block';
+        }
+
+        // تحية الذكاء الاصطناعي
+        function showAIGreeting() {
+            const greetings = [
+                "أهلاً وسهلاً يا أميرة! 💖 مرحباً بك في عالمي الوردي الجميل",
+                "مرحباً حبيبتي! 🌸 أسعدني جداً أن تزوري موقعي اللطيف",
+                "يا أهلاً وسهلاً! ✨ نورتِ موقعي بحضورك الجميل",
+                "أهلاً بك يا جميلة! 🧸 أتمنى أن تستمتعي بتصفح موقعي",
+                "أهلاً بنجمة اليوم! 🌟 وجودك زاد المكان بهجة وسعادة",
+                "هلا وغلا يا قمر! 🌙 كل شيء هنا يرحب بك بكل حب",
+                "مرحباً بكِ في ركن السعادة والجمال! 🎀 استمتعي بكل لحظة",
+                "يا أهلاً بلمستك الناعمة! 💅 هنا حيث الدلال والأنوثة",
+                "موقعنا صار أحلى بوجودك يا ملكة الأناقة 👑",
+                "قلبي يرحب فيك قبل موقعي! 💗 أهلاً وسهلاً بكِ بكل حب"
+            ];
+            const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+            document.getElementById('greeting-text').textContent = randomGreeting;
+            document.getElementById('ai-greeting').style.display = 'block';
+            // إخفاء التحية بعد 6 ثوان
+            setTimeout(() => {
+                const greeting = document.getElementById('ai-greeting');
+                greeting.style.opacity = '0';
+                greeting.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    greeting.style.display = 'none';
+                }, 500);
+            }, 6000);
+        }
+
+        // عداد الزوار
+        function updateVisitorCount() {
+            let visitorCount = localStorage.getItem('visitorCount');
+            if (!visitorCount) {
+                visitorCount = 877;
+            } else {
+                visitorCount = parseInt(visitorCount) + 1;
+            }
+            localStorage.setItem('visitorCount', visitorCount);
+            const counterElement = document.getElementById('visitor-count');
+            counterElement.textContent = visitorCount.toLocaleString('ar-EG') + ' زائر';
+            // تأثير حركي للعداد
+            counterElement.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                counterElement.style.transform = 'scale(1)';
+            }, 400);
+        }
+
+        // تهيئة كل شيء عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            createFallingAnimation();
+            updateIraqTime();
+            setInterval(updateIraqTime, 1000);
+            updateVisitorCount();
+            generateDailyQuote();
+            setTimeout(showAIGreeting, 4000);
+        });
     </script>
 </body>
 </html>
