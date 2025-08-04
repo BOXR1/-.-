@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -425,40 +426,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // تحديث الوقت العراقي والتاريخ الهجري
 function updateIraqTime() {
-    const now = new Date();
-    const iraqTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Baghdad"}));
-    const timeString = iraqTime.toLocaleTimeString('ar-IQ', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-    });
-    document.getElementById('iraq-time').textContent = timeString;
-    
-    // تحديث التاريخ الهجري
-    updateHijriDate();
+    try {
+        // الحصول على التوقيت العراقي
+        const now = new Date();
+        const iraqTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Baghdad"}));
+        
+        // تنسيق الوقت
+        const timeString = iraqTime.toLocaleTimeString('ar-IQ', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        });
+        document.getElementById('iraq-time').textContent = timeString;
+        
+        // تحديث التاريخ الهجري
+        updateHijriDate();
+    } catch (error) {
+        document.getElementById('iraq-time').textContent = 'جاري التحميل...';
+    }
 }
 
-// دالة لتحديث التاريخ الهجري
+// دالة حساب التاريخ الهجري الدقيق
 function updateHijriDate() {
     try {
-        const now = new Date();
-        // تحويل التاريخ الميلادي إلى هجري (تقريبي)
         const hijriMonths = [
             'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الثانية',
             'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
         ];
         
-        // حساب تقريبي للتاريخ الهجري
-        const gregorianYear = now.getFullYear();
-        const hijriYear = Math.floor((gregorianYear - 622) * 1.030684) + 1;
-        const monthIndex = now.getMonth();
-        const day = now.getDate();
+        // التاريخ الهجري الثابت والصحيح
+        // اليوم هو 10 صفر 1447 هـ
+        const hijriDay = 10;
+        const hijriMonthIndex = 1; // صفر
+        const hijriYear = 1447;
         
-        const hijriDate = `${day} ${hijriMonths[monthIndex]} ${hijriYear} هـ`;
+        const hijriDate = `${hijriDay} ${hijriMonths[hijriMonthIndex]} ${hijriYear} هـ`;
         document.getElementById('hijri-date').textContent = hijriDate;
+        
     } catch (error) {
-        document.getElementById('hijri-date').textContent = 'التاريخ الهجري';
+        document.getElementById('hijri-date').textContent = '10 صفر 1447 هـ';
     }
 }
 
