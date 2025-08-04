@@ -429,8 +429,8 @@ function updateIraqTime() {
     try {
         // الحصول على التوقيت العراقي
         const now = new Date();
-        const iraqTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Baghdad"}));
-        
+        const iraqTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Baghdad" }));
+
         // تنسيق الوقت
         const timeString = iraqTime.toLocaleTimeString('ar-IQ', {
             hour: '2-digit',
@@ -439,33 +439,28 @@ function updateIraqTime() {
             hour12: true
         });
         document.getElementById('iraq-time').textContent = timeString;
-        
-        // تحديث التاريخ الهجري
-        updateHijriDate();
+
+        // تحديث التاريخ الهجري باستخدام التوقيت العراقي
+        updateHijriDate(iraqTime);
     } catch (error) {
         document.getElementById('iraq-time').textContent = 'جاري التحميل...';
     }
 }
 
-// دالة حساب التاريخ الهجري الدقيق
-function updateHijriDate() {
+// دالة حساب التاريخ الهجري الفعلي
+function updateHijriDate(iraqTime) {
     try {
-        const hijriMonths = [
-            'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الثانية',
-            'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
-        ];
-        
-        // التاريخ الهجري الثابت والصحيح
-        // اليوم هو 10 صفر 1447 هـ
-        const hijriDay = 10;
-        const hijriMonthIndex = 1; // صفر
-        const hijriYear = 1447;
-        
-        const hijriDate = `${hijriDay} ${hijriMonths[hijriMonthIndex]} ${hijriYear} هـ`;
+        // استخدام Intl.DateTimeFormat لتحويل التاريخ
+        const formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+
+        const hijriDate = formatter.format(iraqTime);
         document.getElementById('hijri-date').textContent = hijriDate;
-        
     } catch (error) {
-        document.getElementById('hijri-date').textContent = '10 صفر 1447 هـ';
+        document.getElementById('hijri-date').textContent = 'تعذر جلب التاريخ الهجري';
     }
 }
 
